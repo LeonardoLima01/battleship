@@ -1,4 +1,4 @@
-const ship = (length) => {
+export const ship = (length) => {
   return {
     length,
     hits: 0,
@@ -9,6 +9,7 @@ const ship = (length) => {
     },
     isSunk: function () {
       this.sunk = this.hits >= this.length ? true : false;
+      return this.sunk;
     },
   };
 };
