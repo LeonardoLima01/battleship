@@ -1,0 +1,23 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/socryy/battleship.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/socryy/battleship/issues"
+  },
+  "homepage": "https://github.com/socryy/battleship#readme",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
