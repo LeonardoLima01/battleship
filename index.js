@@ -39,7 +39,7 @@ const Gameboard = () => {
   };
 };
 
-function generateNumber(max) {
+export function generateNumber(max) {
   return Math.floor(Math.random() * max);
 }
 
