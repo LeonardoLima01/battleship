@@ -14,7 +14,6 @@ export function addDivs(board) {
           let xValue = newDiv.className[1];
           let yValue = newDiv.className[3];
           if (newDiv.style.backgroundColor == "white") {
-            //if (newDiv.parentNode.id == "playerBoard") {
             if (computerBoard.board[yValue][xValue][0] == "S") {
               computerBoard.ships[computerBoard.board[yValue][xValue][1]].hit();
               newDiv.style.backgroundColor = "red";
@@ -22,23 +21,11 @@ export function addDivs(board) {
               newDiv.style.backgroundColor = "#34c6eb";
             gameLoop(playerBoard, computerBoard);
           }
-          //} else {
-          //  if (computerBoard.board[yValue][xValue][0] == "S") {
-          //    if (newDiv.style.backgroundColor != "red") {
-          //      computerBoard.ships[computerBoard.board[yValue][xValue][1]].hit();
-          //   }
-          //    newDiv.style.backgroundColor = "red";
-          //  } else if (computerBoard.board[yValue][xValue] == "W")
-          //    newDiv.style.backgroundColor = "cyan";
-          //}
         });
       }
     }
   }
 }
-
-let playerBoardDiv = document.querySelector("#playerBoard");
-let computerBoardDiv = document.querySelector("#computerBoard");
 
 function computerPlays(computerBoard, playerBoard) {
   let x = "";
@@ -48,7 +35,6 @@ function computerPlays(computerBoard, playerBoard) {
     x = generateNumber(10);
     y = generateNumber(10);
   } while (
-    //playerBoard.board[y][x] == "X"
     document.querySelector(`.x${x}y${y}`).style.backgroundColor != "white"
   );
 
@@ -58,10 +44,6 @@ function computerPlays(computerBoard, playerBoard) {
     playerBoard.board[y][x] = "X";
     selectedSquare.style.backgroundColor = "#34c6eb";
   } else {
-    console.log("ships: ", playerBoard.ships);
-    console.log("board: ", playerBoard.board);
-    console.log("X: ", x);
-    console.log("Y: ", y);
     playerBoard.ships[playerBoard.board[y][x][1]].hit();
     selectedSquare.style.backgroundColor = "red";
   }

@@ -1,4 +1,4 @@
-import { addDivs, gameLoop } from "./game.js";
+import { addDivs } from "./game.js";
 
 const Ship = (length) => {
   return {
@@ -46,6 +46,17 @@ export function generateNumber(max) {
 function isNearbyEmpty(board, size, x, y) {
   for (let i = 0; i < size; i++) {
     if (board[y][x + i] != "W") return false;
+
+    if (y <= 8) {
+      if (board[y + 1][x + i] != "W") return false;
+
+      if (y != 0) if (board[y - 1][x + i] != "W") return false;
+    }
+    if (y >= 1) {
+      if (board[y - 1][x + i] != "W") return false;
+
+      if (y != 9) if (board[y + 1][x + i] != "W") return false;
+    }
   }
   return true;
 }
@@ -63,7 +74,6 @@ function createShips(board) {
 
     let newShip = Ship(sizes[i]);
     board.ships.push(newShip);
-    console.log(board.ships);
 
     for (let j = 0; j < sizes[i]; j++) {
       board.board[y][x + j] = "S" + i;
@@ -80,13 +90,8 @@ computerBoard.newBoard();
 createShips(playerBoard);
 createShips(computerBoard);
 
-console.log(playerBoard.board);
-console.log(computerBoard.board);
-
 let playerBoardDiv = document.querySelector("#playerBoard");
 let computerBoardDiv = document.querySelector("#computerBoard");
 
 addDivs(playerBoardDiv);
 addDivs(computerBoardDiv);
-
-gameLoop(playerBoard, computerBoard);
