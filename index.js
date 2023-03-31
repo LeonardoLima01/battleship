@@ -1,6 +1,6 @@
 import { addDivs } from "./game.js";
 
-const Ship = (length) => {
+export const Ship = (length) => {
   return {
     length,
     hits: 0,
@@ -14,84 +14,62 @@ const Ship = (length) => {
   };
 };
 
-const Gameboard = () => {
-  return {
-    ships: [],
-    board: [],
-    newBoard: function () {
-      for (let i = 0; i < 10; i++) {
-        this.board[i] = [];
-        for (let j = 0; j < 10; j++) {
-          this.board[i][j] = "W";
+export function createBoard() {
+  let arr = [];
+
+  for (let i = 0; i < 10; i++) {
+    arr[i] = [];
+    for (let j = 0; j < 10; j++) {
+      arr[i][j] = "W";
+    }
+  }
+  return arr;
+}
+
+function checkNearby(x, y, length, board) {
+  if (x + length > 9) return;
+
+  for (y; y < 3; y++) {
+    for (x; x < length + 2; x++) {
+      if (y - 1 >= 0 && x - 1 >= 0 && y - 1 <= 9 && x - 1 <= 9) {
+        if (board[y - 1][x - 1] != "W") {
+          return false;
         }
+      }
+    }
+  }
+  return true;
+}
+
+export const Gameboard = () => {
+  let board = createBoard();
+  return {
+    count: 0,
+    sizes: [5, 4, 3, 3, 2],
+    ships: [],
+    board,
+    placeShip: function (x, y) {
+      if (checkNearby(x, y, this.sizes[this.count], this.board)) {
+        for (let i = 0; i < this.sizes[this.count]; i++) {
+          board[y][x + i] = "S" + this.count;
+        }
+        let newShip = Ship(this.sizes[this.count]);
+        this.ships.push(newShip);
+        this.count++;
       }
     },
     receiveAttack: function (x, y) {
-      if (board[x][y] == "W") board[x][y] = "X";
-      else if (board[x][y][0] == "S") this.ships[board[x][y][1]].hit();
+      if (this.board[y][x] == "W") this.board[y][x] = "X";
+      else if (this.board[y][x][0] == "S") {
+        this.ships[this.board[y][x][1]].hit();
+        this.board[y][x] = "X";
+      }
     },
-    allShipsSunk: function () {
-      for (let i = 0; i < 5; i++) {
+    allSunk: function () {
+      for (let i = 0; i < this.count; i++) {
         if (!this.ships[i].isSunk()) return false;
       }
       return true;
     },
   };
 };
-
-export function generateNumber(max) {
-  return Math.floor(Math.random() * max);
-}
-
-function isNearbyEmpty(board, size, x, y) {
-  for (let i = 0; i < size; i++) {
-    if (board[y][x + i] != "W") return false;
-
-    if (y <= 8) {
-      if (board[y + 1][x + i] != "W") return false;
-
-      if (y != 0) if (board[y - 1][x + i] != "W") return false;
-    }
-    if (y >= 1) {
-      if (board[y - 1][x + i] != "W") return false;
-
-      if (y != 9) if (board[y + 1][x + i] != "W") return false;
-    }
-  }
-  return true;
-}
-
-function createShips(board) {
-  let sizes = [5, 4, 3, 3, 2];
-  let x = "";
-  let y = "";
-
-  for (let i = 0; i < 5; i++) {
-    do {
-      x = generateNumber(9 - sizes[i] + 1);
-      y = generateNumber(9);
-    } while (!isNearbyEmpty(board.board, sizes[i], x, y));
-
-    let newShip = Ship(sizes[i]);
-    board.ships.push(newShip);
-
-    for (let j = 0; j < sizes[i]; j++) {
-      board.board[y][x + j] = "S" + i;
-    }
-  }
-}
-
-export let playerBoard = Gameboard();
-playerBoard.newBoard();
-
-export let computerBoard = Gameboard();
-computerBoard.newBoard();
-
-createShips(playerBoard);
-createShips(computerBoard);
-
-let playerBoardDiv = document.querySelector("#playerBoard");
-let computerBoardDiv = document.querySelector("#computerBoard");
-
-addDivs(playerBoardDiv);
-addDivs(computerBoardDiv);
