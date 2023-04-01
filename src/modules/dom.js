@@ -18,7 +18,7 @@ export function createDivs() {
       for (let j = 0; j < 10; j++) {
         let newDiv = document.createElement("div");
         newDiv.className = "x" + j + "y" + i;
-        newDiv.style.border = "2px solid black";
+        newDiv.style.border = "1px solid black";
         newDiv.style.backgroundColor = "white";
         newDiv.style.opacity = "1";
 
