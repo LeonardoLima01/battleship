@@ -42,9 +42,6 @@ export function createDivs() {
                 computerDiv.style.display = "flex";
                 playerTitle.textContent = "Your board";
               }
-              console.log("X: ", x);
-              console.log("Y: ", y);
-              console.log(playerBoard);
             }
           });
 

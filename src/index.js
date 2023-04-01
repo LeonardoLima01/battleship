@@ -92,7 +92,6 @@ let playerTitle = document.querySelector(".p-title");
 computerDiv.style.display = "none";
 playerTitle.textContent = "Place your ships";
 
-console.log("Computer board: ", computerBoard);
 createShips(computerBoard);
 
 createDivs();
@@ -104,9 +103,6 @@ function computerPlays() {
   do {
     x = randomNum(10);
     y = randomNum(10);
-    console.log(x);
-    console.log(y);
-    console.log(playerBoard);
   } while (playerBoard.board[y][x] == "X");
 
   playerBoard.receiveAttack(x, y);
