@@ -35,11 +35,11 @@ body > div {
 #computerBoard > div,
 #playerBoard > div {
   opacity: 0.8;
+  border: 1px solid black;
 }
 #computerBoard {
   cursor: crosshair;
 }
-
 .container-p,
 .container-c {
   font-size: 3vw;
