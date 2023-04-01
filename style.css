@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10vw;
+  background-image: url(./img/sea4.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  flex-direction: column;
+}
+
+body > div {
+  display: flex;
+  gap: 10vw;
+}
+
+#computerBoard,
+#playerBoard {
+  width: 25vw;
+  height: 25vw;
+  border: 3px solid black;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+#computerBoard > div,
+#playerBoard > div {
+  opacity: 0.8;
+}
+#computerBoard {
+  cursor: crosshair;
+}
+
+.container-p,
+.container-c {
+  font-size: 3vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+  align-items: center;
+}
+
+.p-title,
+.c-title {
+  display: flex;
+  justify-content: center;
+  color: #eee;
+  background-color: rgb(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  width: fit-content;
+}
+
+#endPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#endContainer {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+  width: 35vw;
+  height: 10vw;
+  border-radius: 20px;
+  background-color: rgb(0, 0, 0, 0.5);
+  color: #eee;
+  font-size: 4vw;
+}
+
+#endContainer p {
+  margin: 0px;
+}
+
+button {
+  padding: 0.5vw;
+  font-size: 1.5vw;
+  border-radius: 0.5vw;
+  cursor: pointer;
+  color: #eee;
+  background-color: transparent;
+  border: 0;
+  transition: color 1s, background-color 0.5s;
+}
+
+button:hover {
+  color: rgb(0, 119, 255);
+  background-color: white;
+}
