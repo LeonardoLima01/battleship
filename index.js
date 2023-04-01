@@ -56,8 +56,16 @@ export const Gameboard = () => {
       }
     },
     receiveAttack: function (x, y) {
-      if (this.board[y][x] == "W") this.board[y][x] = "X";
-      else if (this.board[y][x][0] == "S") {
+      let selectedSquare =
+        this.board == playerBoard.board
+          ? document.querySelector(`#playerBoard > .x${x}y${y}`)
+          : document.querySelector(`#computerBoard > .x${x}y${y}`);
+
+      if (this.board[y][x] == "W") {
+        selectedSquare.style.backgroundColor = "#669ffa";
+        this.board[y][x] = "X";
+      } else if (this.board[y][x][0] == "S") {
+        selectedSquare.style.backgroundColor = "red";
         this.ships[this.board[y][x][1]].hit();
         this.board[y][x] = "X";
       }
@@ -78,7 +86,7 @@ function createShips(board) {
 }
 
 export let playerBoard = Gameboard();
-let computerBoard = Gameboard();
+export let computerBoard = Gameboard();
 let computerDiv = document.querySelector(".container-c");
 let playerTitle = document.querySelector(".p-title");
 computerDiv.style.display = "none";
@@ -88,11 +96,27 @@ console.log("Computer board: ", computerBoard);
 createShips(computerBoard);
 
 createDivs();
-z;
 
-function gameLoop() {}
+function computerPlays() {
+  let x = "";
+  let y = "";
 
-gameLoop();
+  do {
+    x = randomNum(10);
+    y = randomNum(10);
+    console.log(x);
+    console.log(y);
+    console.log(playerBoard);
+  } while (playerBoard.board[y][x] == "X");
+
+  playerBoard.receiveAttack(x, y);
+}
+
+export function gameLoop() {
+  if (playerBoard.allSunk() || computerBoard.allSunk()) alert("end");
+
+  computerPlays();
+}
 
 export const Player = () => {
   return {

@@ -1,4 +1,4 @@
-import { playerBoard, checkNearby } from "../index.js";
+import { playerBoard, computerBoard, checkNearby, gameLoop } from "../index.js";
 
 let player = document.querySelector("#playerBoard");
 let computer = document.querySelector("#computerBoard");
@@ -17,52 +17,61 @@ export function createDivs() {
         newDiv.style.backgroundColor = "white";
         newDiv.style.opacity = "1";
 
-        newDiv.addEventListener("click", () => {
-          if (newDiv.style.backgroundColor == "green") {
+        if (board == computer) {
+          newDiv.addEventListener("click", () => {
             let x = newDiv.className[1];
             let y = newDiv.className[3];
 
-            playerBoard.placeShip(x, y, 1);
+            computerBoard.receiveAttack(x, y);
+            gameLoop();
+          });
+        } else {
+          newDiv.addEventListener("click", () => {
+            if (newDiv.style.backgroundColor == "green") {
+              let x = newDiv.className[1];
+              let y = newDiv.className[3];
 
-            if (playerBoard.count == 5) {
-              computerDiv.style.display = "flex";
-              playerTitle.textContent = "Your board";
+              playerBoard.placeShip(x, y, 1);
+
+              if (playerBoard.count == 5) {
+                computerDiv.style.display = "flex";
+                playerTitle.textContent = "Your board";
+              }
+              console.log("X: ", x);
+              console.log("Y: ", y);
+              console.log(playerBoard);
             }
-            console.log("X: ", x);
-            console.log("Y: ", y);
-            console.log(playerBoard);
-          }
-        });
+          });
 
-        newDiv.addEventListener("mouseover", () => {
-          if (
-            checkNearby(
-              newDiv.className[1],
-              newDiv.className[3],
-              playerBoard.sizes[playerBoard.count],
-              playerBoard
-            )
-          ) {
-            let a = newDiv;
-            for (let i = 0; i < playerBoard.sizes[playerBoard.count]; i++) {
-              a.style.backgroundColor = "green";
-              a = a.nextElementSibling;
-            }
-          }
-        });
-
-        newDiv.addEventListener("mouseout", () => {
-          let a = newDiv;
-          for (let i = 0; i < 10; i++) {
-            if (a) {
-              if (a.style.backgroundColor == "green") {
-                a.style.backgroundColor = "white";
+          newDiv.addEventListener("mouseover", () => {
+            if (
+              checkNearby(
+                newDiv.className[1],
+                newDiv.className[3],
+                playerBoard.sizes[playerBoard.count],
+                playerBoard
+              )
+            ) {
+              let a = newDiv;
+              for (let i = 0; i < playerBoard.sizes[playerBoard.count]; i++) {
+                a.style.backgroundColor = "green";
                 a = a.nextElementSibling;
               }
             }
-          }
-        });
+          });
 
+          newDiv.addEventListener("mouseout", () => {
+            let a = newDiv;
+            for (let i = 0; i < 10; i++) {
+              if (a) {
+                if (a.style.backgroundColor == "green") {
+                  a.style.backgroundColor = "white";
+                  a = a.nextElementSibling;
+                }
+              }
+            }
+          });
+        }
         if (board) board.appendChild(newDiv);
       }
     }
