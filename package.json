@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/socryy/battleship/issues"
   },
-  "homepage": "https://github.com/socryy/battleship#readme"
+  "homepage": "https://github.com/socryy/battleship#readme",
+  "devDependencies": {
+    "jest-environment-jsdom": "^29.5.0"
+  }
 }

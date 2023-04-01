@@ -1,4 +1,4 @@
-import { addDivs } from "./game.js";
+import { createDivs } from "./modules/dom.js";
 
 export const Ship = (length) => {
   return {
@@ -26,17 +26,9 @@ export function createBoard() {
   return arr;
 }
 
-function checkNearby(x, y, length, board) {
-  if (x + length > 9) return;
-
-  for (y; y < 3; y++) {
-    for (x; x < length + 2; x++) {
-      if (y - 1 >= 0 && x - 1 >= 0 && y - 1 <= 9 && x - 1 <= 9) {
-        if (board[y - 1][x - 1] != "W") {
-          return false;
-        }
-      }
-    }
+export function checkNearby(x, y, length, board) {
+  for (let i = 0; i < length; i++) {
+    if (board.board[y][+x + +i] != "W") return false;
   }
   return true;
 }
@@ -48,14 +40,19 @@ export const Gameboard = () => {
     sizes: [5, 4, 3, 3, 2],
     ships: [],
     board,
-    placeShip: function (x, y) {
-      if (checkNearby(x, y, this.sizes[this.count], this.board)) {
+    placeShip: function (x, y, show = 0) {
+      if (checkNearby(x, y, this.sizes[this.count], this)) {
         for (let i = 0; i < this.sizes[this.count]; i++) {
-          board[y][x + i] = "S" + this.count;
+          board[y][+x + +i] = "S" + this.count;
+          if (show == 1)
+            document.querySelector(`.x${+x + +i}y${y}`).style.backgroundColor =
+              "gray";
         }
         let newShip = Ship(this.sizes[this.count]);
         this.ships.push(newShip);
         this.count++;
+      } else {
+        this.placeShip(randomNum(10), randomNum(10), show);
       }
     },
     receiveAttack: function (x, y) {
@@ -71,5 +68,34 @@ export const Gameboard = () => {
       }
       return true;
     },
+  };
+};
+
+let randomNum = (max) => Math.floor(Math.random() * max);
+
+function createShips(board) {
+  for (let i = 0; i < 5; i++) board.placeShip(randomNum(10), randomNum(10));
+}
+
+export let playerBoard = Gameboard();
+let computerBoard = Gameboard();
+let computerDiv = document.querySelector(".container-c");
+let playerTitle = document.querySelector(".p-title");
+computerDiv.style.display = "none";
+playerTitle.textContent = "Place your ships";
+
+console.log("Computer board: ", computerBoard);
+createShips(computerBoard);
+
+createDivs();
+z;
+
+function gameLoop() {}
+
+gameLoop();
+
+export const Player = () => {
+  return {
+    gameboard: Gameboard(),
   };
 };

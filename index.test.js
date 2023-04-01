@@ -1,4 +1,8 @@
-import { Gameboard } from "./index.js";
+/**
+ * @jest-environment jsdom
+ */
+
+import { Gameboard, Player } from "./index.js";
 
 // Places ship
 let b1 = Gameboard();
@@ -34,13 +38,13 @@ b2.receiveAttack(1, 3);
 b2.receiveAttack(2, 3);
 b2.receiveAttack(3, 3);
 
-test("Ship get hits and sunks", () => {
+test("Ship get hit and sunk", () => {
   expect(b2.ships[0].hits).toBe(5);
   expect(b2.ships[0].isSunk()).toBe(true);
   expect(b2.ships[1].hits).toBe(4);
-  //expect(b2.ships[1].isSunk()).toBe(true);
+  expect(b2.ships[1].isSunk()).toBe(true);
 });
 
-//test("Detects if all ships sunk", () => {
-//  expect(b2.allSunk()).toBe(true);
-//});
+test("Detects if all ships have sunk", () => {
+  expect(b2.allSunk()).toBe(true);
+});
