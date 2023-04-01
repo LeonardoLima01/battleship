@@ -113,7 +113,13 @@ function computerPlays() {
 }
 
 export function gameLoop() {
-  if (playerBoard.allSunk() || computerBoard.allSunk()) alert("end");
+  if (playerBoard.allSunk() || computerBoard.allSunk()) {
+    document.querySelector("#winner").textContent = playerBoard.allSunk()
+      ? "The Enemy"
+      : "The Player";
+    document.querySelector("body>div").style.display = "none";
+    document.querySelector("#endContainer").style.display = "flex";
+  }
 
   computerPlays();
 }

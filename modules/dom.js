@@ -7,6 +7,11 @@ let arr = [player, computer];
 let computerDiv = document.querySelector(".container-c");
 let playerTitle = document.querySelector(".p-title");
 
+let refreshButton = document.querySelector("#endContainer > button");
+refreshButton.addEventListener("click", () => {
+  window.location.reload();
+});
+
 export function createDivs() {
   for (let board of arr) {
     for (let i = 0; i < 10; i++) {
