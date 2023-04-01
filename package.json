@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/socryy/battleship#readme",
   "devDependencies": {
-    "jest-environment-jsdom": "^29.5.0"
+    "jest-environment-jsdom": "^29.5.0",
+    "webpack": "^5.77.0",
+    "webpack-cli": "^5.0.1"
   }
 }
