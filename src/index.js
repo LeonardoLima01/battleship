@@ -109,6 +109,8 @@ function computerPlays() {
 }
 
 export function gameLoop() {
+  computerPlays();
+
   if (playerBoard.allSunk() || computerBoard.allSunk()) {
     document.querySelector("#winner").textContent = playerBoard.allSunk()
       ? "The Enemy"
@@ -116,8 +118,6 @@ export function gameLoop() {
     document.querySelector("body>div").style.display = "none";
     document.querySelector("#endContainer").style.display = "flex";
   }
-
-  computerPlays();
 }
 
 export const Player = () => {
