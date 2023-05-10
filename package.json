@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/socryy/battleship.git"
+    "url": "git+https://github.com/LeonardoLima01/battleship.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/socryy/battleship/issues"
+    "url": "https://github.com/LeonardoLima01/battleship/issues"
   },
-  "homepage": "https://github.com/socryy/battleship#readme",
+  "homepage": "https://github.com/LeonardoLima01/battleship#readme",
   "devDependencies": {
     "jest-environment-jsdom": "^29.5.0",
     "webpack": "^5.77.0",
